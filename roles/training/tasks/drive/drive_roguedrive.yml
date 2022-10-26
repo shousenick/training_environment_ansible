@@ -1,0 +1,14 @@
+---
+- name: "Adding a rogue drive to /etc/mtab."
+  ansible.builtin.lineinfile:
+   insertafter: EOF
+   path: /etc/mtab
+   state: present
+   line: '/dev/vdd /backup ext4 rw 0 0'
+   
+- name: "Adding a rogue drive to /etc/fstab."
+  ansible.builtin.lineinfile:
+   insertafter: EOF
+   path: /etc/fstab
+   state: present
+   line: 'UUID=f3f7663c-a2fc-449d-811d-d8b97bb500f       /backup ext4    defaults,noatime,nodiratime,errors=remount-ro   0 1'

@@ -1,0 +1,4 @@
+---
+- name: "Include for DNS breaks"
+  include_tasks:
+   file: /home/ansible/roles/training/tasks/dns/{{ break_name }}.yml

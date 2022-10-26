@@ -1,0 +1,21 @@
+---
+- hosts: dns_master
+  remote_user: root
+  pre_tasks:
+   - pause:
+      prompt: "Provide domain to be added to master"
+     register: domain_prompt
+   - set_fact:
+      provided_domain: "{{ domain_prompt.user_input }}"
+   - pause:
+      prompt: "Provide IP for ns1"
+     register: ip_1_prompt
+   - set_fact:
+      provided_first_ip: "{{ ip_1_prompt.user_input }}"
+   - pause:
+      prompt: "Provide IP for ns2"
+     register: ip_2_prompt
+   - set_fact:
+      provided_second_ip: "{{ ip_2_prompt.user_input }}"
+  roles:
+   - '/home/ansible/roles/dnsadmin' 

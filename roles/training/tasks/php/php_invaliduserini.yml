@@ -1,0 +1,19 @@
+---
+- name: "Pull in the default php version"
+  include_tasks:
+   file: php/php_phpversions.yml
+
+- name: "Copying the ini into the directory"
+  copy:
+   remote_src: yes
+   src: /opt/cpanel/{{ php_version_default.stdout }}/root/etc/php.ini
+   dest: /home/{{ target_user }}/public_html/.user.ini
+   group: "{{ target_user }}"
+   owner: "{{ target_user }}"
+   mode: '0644'
+
+- name: "add in a bad extension path for modules"
+  lineinfile:
+   line: 'extension_dir = "/usr/local/lib/"'
+   path: /home/{{ target_user }}/public_html/.user.ini
+

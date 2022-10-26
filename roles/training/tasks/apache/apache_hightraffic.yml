@@ -1,0 +1,5 @@
+---
+# sending lots of traffic to the phpMyAdmin url on your website, check apache access logs
+- name: "curling domain/phpMyAdmin url"
+  shell:
+   cmd: 'for volume in {1..100} ; do curl -IL {{ target_domain }}/phpmyadmin.php ; done' 

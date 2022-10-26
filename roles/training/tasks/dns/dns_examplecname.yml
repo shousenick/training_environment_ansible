@@ -1,0 +1,11 @@
+---
+- name: "Modify DNS zone with sitelock CNAME for www."
+  replace:   
+   path: /var/named/{{ target_domain }}.db
+   regexp: 'www.+{{ target_domain }}'
+   replace: 'www 14400 IN CNAME ns35.cdn.sitelock.com'
+
+- name: "Restart named service for changes."
+  service:
+   name: named
+   state: restarted

@@ -1,0 +1,18 @@
+---
+- name: "Pull HTTPD Root"
+  shell:
+   cmd: httpd -V | grep -oP 'HTTPD_ROOT.+\K/\w+/\w+'
+  register: httpd_root
+
+- debug:
+   msg: "{{ httpd_root.stdout }}"
+
+- name: "Modify pre_main_global.conf"
+  lineinfile:
+   path: "{{ httpd_root.stdout }}/conf.d/includes/pre_main_global.conf"
+   line: RLimitMem 1
+
+- name: "Restart httpd service"
+  service:
+   name: httpd
+   state: restarted

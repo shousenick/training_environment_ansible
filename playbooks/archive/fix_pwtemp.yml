@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+   - name: "fixing missing perl packages for pwtemp"
+     yum:
+      name:
+       - perl-YAML-Tiny
+       - perl-Config-Tiny
+       - perl-JSON
+      state: present

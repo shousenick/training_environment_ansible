@@ -1,0 +1,6 @@
+---
+- name: "Setting up motd"
+  copy:
+   src: files/motd
+   dest: /etc/motd
+   force: yes

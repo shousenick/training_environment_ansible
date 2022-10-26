@@ -1,0 +1,22 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: no
+
+  tasks:
+   - name: "yum install lynx"
+     yum:
+      name: lynx
+      state: present
+
+   - name: "include lynx into /var/cpanel/exim.conf.deps"
+     lineinfile:
+      line: /etc/lynx.lss
+      path: /var/cpanel/exim.conf.deps
+      create: yes
+
+   - name: "include man_db.conf into /var/cpanel/exim.conf.deps"
+     lineinfile:
+      line: /etc/man_db.conf
+      path: /var/cpanel/exim.conf.deps
+      create: yes

@@ -1,0 +1,12 @@
+---
+- name: "Modifying {{ target_domain }} dns zone with an special character at EoF"
+  lineinfile:
+   path: /var/named/{{ target_domain }}.db
+   line: "\xA0"
+   state: present
+
+- name: "Restart named service on box for changes to apply."
+  service:
+   #name: named
+    name: pdns
+    state: restarted

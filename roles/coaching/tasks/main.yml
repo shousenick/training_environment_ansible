@@ -1,0 +1,23 @@
+---
+- name: "Getting WordPress core files"
+  include_tasks:
+   file: core_file.yml
+
+- name: "Modifying config"
+  include_tasks: 
+   file: modify_config.yml
+
+- name: "database mngmt"
+  include_tasks: 
+   file: mysql_data.yml
+
+- name: "wp-admin prompt input"
+  include_tasks:
+   file: prompt_input.yml
+
+- name: "Plugin Install"
+  include_tasks:
+   file: plugin_install.yml
+- name: "Theme Install"
+  include_tasks:
+   file: theme_install.yml

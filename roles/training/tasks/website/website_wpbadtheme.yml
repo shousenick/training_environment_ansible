@@ -1,0 +1,10 @@
+---
+#shamelessly copying sheffield's work
+- name: "Getting DB name from wp-config.php"
+  shell: awk -F "'" '$2 ~ "DB_N" {print $4}' /home/{{ target_user }}/public_html/wp-config.php
+  register: wp_db_name
+
+- name: "Switching to the cpanel user to run the mysql query to change siteurl/home thru MySQL cli"
+  shell: mysql -e "USE {{ wp_db_name.stdout }}; UPDATE wp_options SET option_value=' ' WHERE option_name='template'; UPDATE wp_options SET option_value=' ' WHERE option_name='stylesheet';"
+  args:
+   chdir: "~{{ target_user }}/public_html/"

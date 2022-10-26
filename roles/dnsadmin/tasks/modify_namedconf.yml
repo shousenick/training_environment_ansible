@@ -1,0 +1,7 @@
+---
+- name: "Modifying the /etc/named.conf file"
+  blockinfile:
+   path: /etc/named.conf
+   insertafter: '^#Add_New_Zone'
+   marker: ""
+   block: "{{ lookup('template', '/home/ansible/roles/dnsadmin/templates/namedconf_modification') }}"

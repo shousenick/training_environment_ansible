@@ -1,0 +1,16 @@
+---
+- name: "Removing existing /etc/resolv.conf"
+  file:
+   path: /etc/resolv.conf
+   state: absent
+
+- name: "Creating /etc/resolv.conf"
+  file:
+   path: /etc/resolv.conf
+   state: touch
+   mode: u=rw,g=r,o=r
+
+- name: "Modifying contents of /etc/resolv.conf with internal HG IP"
+  lineinfile:
+   path: /etc/resolv.conf
+   line: "nameserver 192.168.1.1"

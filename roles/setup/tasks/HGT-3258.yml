@@ -1,0 +1,12 @@
+---
+- name: "Allowing for remote domains and un-registered domains for activities"
+  ansible.builtin.replace:
+   path: /var/cpanel/cpanel.config
+   regexp: '(?<=allowremotedomains=).'
+   replace: '1'
+
+- name: "Allowing for unregistered domains"
+  ansible.builtin.replace:
+   path: /var/cpanel/cpanel.config
+   regexp: '(?<=allowunregistereddomains=).'
+   replace: '1' 

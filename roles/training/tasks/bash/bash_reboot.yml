@@ -1,0 +1,3 @@
+---
+- name: "rebooting target server"
+  shell: reboot

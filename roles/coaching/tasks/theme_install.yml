@@ -1,0 +1,17 @@
+---
+- name: "Install & activating theme inspiro"
+  shell: "/usr/local/bin/php /usr/local/bin/wp/wp-cli.phar theme install inspiro --activate  --allow-root --path=/home/{{ target_user }}/public_html/"
+- name: "copy over Website backup"
+  copy:
+   src: files/backup.xml
+   dest: "/home/{{ target_user }}/public_html/backup.xml"
+   owner: "{{ target_user }}"
+   group: "{{ target_user }}"
+   mode: '0644'
+
+- name: "fixing perms"
+  shell:
+   cmd: /root/bin/perms {{ target_user }}
+
+- name: "Import the website backup"
+  shell: "/usr/local/bin/php /usr/local/bin/wp/wp-cli.phar import /home/{{ target_user }}/public_html/backup.xml --authors=create --allow-root --path=/home/{{ target_user }}/public_html/"

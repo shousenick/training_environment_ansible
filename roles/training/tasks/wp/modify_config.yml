@@ -1,0 +1,23 @@
+---
+- name: "generating password"
+  shell:
+   cmd: echo "$(< /dev/urandom tr -dc _A-Z-a-z-0-9|head -c${1-24};)"
+  register: wp_password
+
+- name: "modify db_name"
+  replace:
+   path: /home/{{ target_user }}/public_html/wp-config.php
+   regexp: 'database_name_here'
+   replace: '{{ target_user}}_wp'
+
+- name: "modify db_user"
+  replace:
+   path: /home/{{ target_user }}/public_html/wp-config.php
+   regexp: 'username_here'
+   replace: '{{ target_user}}_wp'
+
+- name: "modify db_password"
+  replace:
+   path: /home/{{ target_user }}/public_html/wp-config.php
+   regexp: 'password_here'
+   replace: '{{ wp_password.stdout }}'  

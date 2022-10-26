@@ -1,0 +1,4 @@
+---
+- name: "Modifying {{ target_email_user.stdout }}@{{ target_domain}} to 1M"
+  shell:
+   cmd: uapi --user={{ target_user }} Email edit_pop_quota email={{ target_email_user.stdout }} quota=1 domain={{ target_domain }}

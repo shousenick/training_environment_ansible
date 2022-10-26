@@ -1,0 +1,9 @@
+#
+- name: "Getting DB name from wp-config.php"
+  shell: awk -F "'" '$2 ~ "DB_N" {print $4}' /home/{{ target_user }}/public_html/wp-config.php
+  register: wp_db_name
+
+- name: "Switching to the cpanel user to run the mysql query to change siteurl/home thru wp cli"
+  shell: mysql -e "USE {{ wp_db_name.stdout }}; UPDATE wp_options SET option_value='https://immahax0r.ninja' WHERE option_name='siteurl'; UPDATE wp_options SET option_value='https://immahax0r.ninja' WHERE option_name='home';"
+  args:
+   chdir: "~{{ target_user }}/public_html"

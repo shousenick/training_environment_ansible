@@ -1,0 +1,9 @@
+---
+- name: "Activating the Really Simple SSL plugin"
+  shell: "/usr/local/bin/php /usr/local/bin/wp/wp-cli.phar plugin install really-simple-ssl --activate  --allow-root --path=/home/{{ target_user }}/public_html/"
+- name: "Install & activating the wordpress-importer plugin"
+  shell: "/usr/local/bin/php /usr/local/bin/wp/wp-cli.phar plugin install wordpress-importer --activate  --allow-root --path=/home/{{ target_user }}/public_html/"
+
+- name: "fixing perms"
+  shell:
+   cmd: /root/bin/perms {{ target_user }}

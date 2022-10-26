@@ -1,0 +1,18 @@
+---
+- name: Setting variable if t2 ILT
+  set_fact: 
+   t2_ilt_wp: "/home/{{ target_user }}/public_html/"
+  when:  target_hostname | regex_search( ".*prepgator.com" )
+
+- name: Setting variable for T3 ILT if T2 ILT is not set
+  set_fact:
+   t3_ilt_wp: "/home/{{ target_user }}/public_html/"
+  when: t2_ilt_wp is undefined
+
+#- debug:
+#   msg: "{{ t3_ilt_wp }}"
+#  when: t3_ilt_wp is defined
+
+#- debug:
+#   msg: " {{ t2_ilt_wp }}"
+#  when: t2_ilt_wp is defined

@@ -1,0 +1,4 @@
+---
+- name: "Include for bash breaks"
+  include_tasks:
+   file: /home/ansible/roles/training/tasks/bash/{{ break_name }}.yml

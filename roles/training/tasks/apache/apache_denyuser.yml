@@ -1,0 +1,13 @@
+---
+- name: "Inserting deny from all into /home/{{ target_user }}/.htaccess, create if it does not exist"
+  lineinfile:
+   path: /home/{{ target_user }}/.htaccess
+   line: deny from all
+   create: yes
+
+- name: "Updating ownership if htaccess is created."
+  file:
+   path: /home/{{ target_user }}/.htaccess
+   state: file
+   owner: "{{ target_user }}"
+   group: "{{ target_user }}"

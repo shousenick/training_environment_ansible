@@ -1,0 +1,11 @@
+---
+- name: "Determine PHP versions on server."
+  include_tasks:
+   file: php/php_phpversions.yml
+- name: "Install php modules via yum"
+  yum:
+   name: "{{ php_version }}-php-mysqlnd"
+   state: present
+  vars:
+   php_version: "{{ item }}"
+  loop: "{{ php_version_list.stdout_lines }}"

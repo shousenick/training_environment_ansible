@@ -1,0 +1,5 @@
+---
+- name: "Installing the lftp"
+  yum:
+   name: lftp
+   state: present

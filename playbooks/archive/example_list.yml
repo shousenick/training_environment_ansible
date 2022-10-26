@@ -1,0 +1,15 @@
+---
+- hosts: root_minions
+  become: yes
+
+  tasks:
+   - name: "Locating the rpm dbs that I need to muck up"
+     find:
+      paths: /var/lib/rpm
+      patterns: '__db.00*'
+     register: rpm_db_list
+
+   - name: print rpm_db_list
+     debug:
+      msg: "{{ item }}"
+     loop: "{{ rpm_db_list | json_query('files[*].path') }}"

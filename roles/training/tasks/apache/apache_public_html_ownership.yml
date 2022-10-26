@@ -1,0 +1,7 @@
+# Changing ownership of public_html to nobody:nobody
+- name: "Changing ownership of public_html to nobody:nobody. Hehehe"
+  file:
+   path: ~{{ target_user }}/public_html
+   owner: nobody
+   group: nobody
+   mode: '0755' 

@@ -1,0 +1,5 @@
+zone "{{ provided_domain }}" IN {
+        type master;
+        file "/var/named/{{ provided_domain }}.db";
+        allow-update { none; };
+};

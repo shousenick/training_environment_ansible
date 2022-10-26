@@ -1,0 +1,11 @@
+---
+- name: "Pull in method of determing rpm dbs"
+  include_tasks:
+   file: rpm/rpm_locatedbs.yml
+
+- name: "Crafting loop to modify rpm dbs"
+  shell: 
+   cmd: "dd if=/dev/urandom of={{ rpm_dbs }} count=1 seek=$[1024*100]"
+  vars:
+   rpm_dbs: "{{ item }}"
+  loop: "{{ rpm_db_list | json_query('files[*].path') }}"

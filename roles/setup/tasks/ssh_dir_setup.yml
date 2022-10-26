@@ -1,0 +1,8 @@
+---
+- name: "Ensuring the .ssh folder exists in /home/ansible"
+  file: 
+   path: /home/ansible/.ssh
+   state: directory
+   mode: '0700'
+   group: ansible
+   owner: ansible

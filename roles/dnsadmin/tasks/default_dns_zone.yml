@@ -1,0 +1,8 @@
+---
+- name: "Copying over default dns zone"
+  template:
+   src: templates/example_dns_zone
+   dest: /var/named/{{ provided_domain }}.db
+   group: named
+   owner: root
+   mode:  '0600'

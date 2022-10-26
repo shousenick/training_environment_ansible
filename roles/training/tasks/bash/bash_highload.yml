@@ -1,0 +1,27 @@
+---
+- name: create folder in user directory for highload1
+  file:
+   path: /home/{{ target_user }}/highload1
+   state: directory
+   mode: '0755'
+   owner: "{{ target_user }}"
+   group: "{{ target_user }}"
+- name: copy over highload1 before_attack
+  copy:
+   src: files/before_attack.txt
+   dest: /home/{{ target_user }}/highload1
+   group: "{{ target_user }}"
+   owner: "{{ target_user }}"
+
+- name: copy over highload1 during_attack
+  copy:
+   src: files/during_attack.txt
+   dest: /home/{{ target_user }}/highload1
+   group: "{{ target_user }}"
+   owner: "{{ target_user }}"
+- name: copy over highload1 during_attack
+  copy:
+   src: files/after_attack.txt
+   dest: /home/{{ target_user }}/highload1
+   group: "{{ target_user }}"
+   owner: "{{ target_user }}"

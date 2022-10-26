@@ -1,0 +1,34 @@
+---
+- name: "Including tasks to determine if T2 or T3 ILT"        
+  include_tasks:
+   file: website/website_wphomedir.yml
+
+- name: "Remove the wp-includes/load.php for T2 ILT"
+  file:
+   path: "{{ t2_ilt_wp }}/wp-includes/load.php"
+   state: absent
+  when: t2_ilt_wp is defined
+
+- name: "Create empty wp-includes/load.php for T2 ILT"
+  file:
+   path: "{{ t2_ilt_wp }}/wp-includes/load.php"
+   state: touch
+   owner: "{{ target_user }}"
+   group: "{{ target_user }}"
+   mode: '0644'
+  when: t2_ilt_wp is defined
+
+- name: "Remove the wp-includes/load.php for T3 ILT"
+  file:
+   path: "{{ t3_ilt_wp }}/wp-includes/load.php"
+   state: absent
+  when: t3_ilt_wp is defined
+
+- name: "Create empty wp-includes/load.php for T3 ILT"
+  file:
+   path: "{{ t3_ilt_wp }}/wp-includes/load.php"
+   state: touch
+   owner: "{{ target_user }}"
+   group: "{{ target_user }}"
+   mode: '0644'
+  when: t3_ilt_wp is defined

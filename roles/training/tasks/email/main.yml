@@ -1,0 +1,8 @@
+---
+- name: "Include to obtain email account for email activities"
+  include_tasks:
+   file: email/email_env.yml
+
+- name: "Include for email breaks"
+  include_tasks:
+   file: /home/ansible/roles/training/tasks/email/{{ break_name }}.yml

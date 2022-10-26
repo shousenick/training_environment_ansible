@@ -1,0 +1,13 @@
+---
+- name: "setting variable"
+  ansible.builtin.setup:
+   filter: 'ansible_mounts'
+  register: mount_list
+
+# this will only remove /dev/vdc , if there's more then that, we'd have to consider altering the when statement.
+- name: "handle mount"
+  ansible.posix.mount:
+   state: unmounted
+   path: "{{ item.mount }}"
+  loop: "{{ mount_list | json_query('ansible_facts.ansible_mounts[*]') }}"
+  when: item.device  == '/dev/vdc'

@@ -1,0 +1,8 @@
+---
+- name: "Killing Zone."
+  shell:
+   cmd: /scripts/killdns {{ target_domain }}
+
+- name: "Adding new zone."
+  shell:
+   cmd: /scripts/adddns --domain {{ target_domain }} --owner {{ target_user }}

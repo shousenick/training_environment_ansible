@@ -1,0 +1,25 @@
+# Setting .htacess in root directory and home directory to 5.4 which WP doesn't support"
+
+- name: "Ensuring ~{{ target_user }}/.htaccess exists..."
+  file:
+   path: ~{{ target_user }}/.htaccess
+   state: touch
+
+- name: "Setting PHP version to 5.4 for ~{{ target_user }}/.htaccess..."
+  lineinfile:
+   path: ~{{ target_user }}/.htaccess
+   regexp: '^$'
+   insertafter: '^$'
+   line: "<IfModule mime_module>\nAddHandler application/x-httpd-ea-php54 .php .php5 .phtml\n</IfModule>"
+
+- name: "Ensuring ~{{ target_user }}/public_html/.htaccess exists..."
+  file:
+   path: ~{{ target_user }}/public_html/.htaccess
+   state: touch
+
+- name: "Setting PHP version to 5.4 for ~{{ target_user }}/public_html/.htaccess..."
+  lineinfile:
+   path: ~{{ target_user }}/public_html/.htaccess
+   regexp: '^$'
+   insertafter: '^$'
+   line: "<IfModule mime_module>\nAddHandler application/x-httpd-ea-php54 .php .php5 .phtml\n</IfModule>"

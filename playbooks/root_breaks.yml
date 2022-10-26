@@ -1,0 +1,6 @@
+---
+- hosts: root_minions
+  become: yes
+  roles:
+   - '/home/ansible/roles/cpanel_env'
+   - '/home/ansible/roles/training'

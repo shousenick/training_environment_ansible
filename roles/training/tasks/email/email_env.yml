@@ -1,0 +1,5 @@
+---
+- name: "Gather email account information on target cPanel account"
+  shell:
+   cmd: uapi --user={{ target_user }} Email list_pops | grep -oP 'email:\s\K.+@.+' |  shuf -n1 | cut -d@ -f1
+  register: target_email_user

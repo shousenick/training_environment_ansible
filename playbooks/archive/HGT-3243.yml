@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: no
+
+  tasks:
+   - name: "Modify HG Firewall to include port 2083"
+     lineinfile:
+      line: "2083"
+      path: /etc/firewall/OUTPUT
+      create: yes
+
+   - name: "Restart firewall so changes apply"
+     ansible.builtin.service:
+      name: firewall
+      state: restarted

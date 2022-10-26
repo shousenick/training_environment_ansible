@@ -1,0 +1,15 @@
+---
+- name: "setting variable"
+  ansible.builtin.setup:
+   filter: 'ansible_mounts'
+  register: mount_list
+
+# this will only remove /dev/vdc , if there's more then that, we'd have to consider altering the when statement.
+# this is terrible coding, there's no dynamic aspect here. 
+# this needs to be updated, but it's late... so pity?
+- name: "handle mount"
+  ansible.posix.mount:
+   state: mounted
+   fstype: ext4
+   src: /dev/vdc
+   path: /backup  

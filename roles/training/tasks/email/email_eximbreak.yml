@@ -1,0 +1,29 @@
+---
+- name: "Checking if /etc/exim.conf exists"
+  stat: 
+   path: /etc/exim.conf
+  register: exim_conf
+
+- name: "Checking if /etc/exim.conf.local exists"
+  stat:
+   path: /etc/exim.conf.local
+  register: exim_conf_local
+
+- name: "Breaking SMTP ports for exim.conf"
+  lineinfile: 
+   path: "{{ exim_conf.stat.path }}"
+   regexp: '^daemon_smtp_ports'
+   line: 'daemon_smtp_ports = 110 : 143 : 993 : 995'
+  when: exim_conf.stat.exists == true
+
+- name: "Breaking SMTP ports for exim.conf.local"
+  lineinfile:
+   path: "{{ exim_conf_local.stat.path }}"
+   regexp: '^daemon_smtp_ports'
+   line: 'daemon_smtp_ports = 110 : 143 : 993 : 995'
+  when: exim_conf_local.stat.exists == true
+
+- name: "Restarting exim config"
+  service:
+   name: exim
+   state: restarted

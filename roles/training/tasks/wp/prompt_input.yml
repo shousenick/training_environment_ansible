@@ -1,0 +1,6 @@
+---
+- name: "filling in the prompt for the final part of install"
+  shell:
+   cmd: 'curl -X POST -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:12.0) Gecko/20100101 Firefox/12.0" -e "http://{{ target_domain }}/wp-admin/install.php?step=2" -H "Content-Type:application/x-www-form-urlencoded" -H "Accept:text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" -H "Accept-Encoding:gzip, deflate" --data "?step=2&weblog_title={{ target_user }}&user_name=admin&admin_password={{ wp_password.stdout }}&admin_password2={{ wp_password.stdout }}&admin_email=support%40{{ target_domain }}&Submit=Install+WordPress" http://{{ target_domain }}/wp-admin/install.php?step=2&weblog_title={{ target_user }}&user_name=admin&admin_password={{ wp_password.stdout }}&admin_password2={{ wp_password.stdout }}&admin_email=support@{{ target_domain }} &Submit=Install+WordPress'
+  args:
+   warn: false

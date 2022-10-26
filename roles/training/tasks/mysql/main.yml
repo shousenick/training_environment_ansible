@@ -1,0 +1,4 @@
+---
+- name: "Include for MySQL breaks"
+  include_tasks:
+   file: /home/ansible/roles/training/tasks/mysql/{{ break_name }}.yml

@@ -1,0 +1,3 @@
+#Moving wp-settings.php into the wp-admin folder. This will create a 500 php error.
+- name: "Moving wp-settings.php into the wp-admin folder. This will create a 500 php error."
+  shell: mv /home/{{ target_user }}/public_html/wp-settings.php /home/{{ target_user }}/public_html/wp-admin

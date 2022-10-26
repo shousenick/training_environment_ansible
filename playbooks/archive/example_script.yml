@@ -1,0 +1,7 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+   - name: "test shell script"
+     script: /home/ansible/example.sh

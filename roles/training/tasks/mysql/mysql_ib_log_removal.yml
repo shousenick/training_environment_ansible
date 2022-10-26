@@ -1,0 +1,14 @@
+---
+- name: "Locating ib_log files"
+  find:
+   paths: /var/lib/mysql
+   patterns: 'ib_logfile*'
+  register: ip_log_list
+
+- name: "Removing ib_log files"
+  file:
+   path: "{{ ip_log }}"
+   state: absent
+  vars:
+   ip_log: "{{ item }}"
+  loop: "{{ ip_log_list | json_query('files[*].path') }}"

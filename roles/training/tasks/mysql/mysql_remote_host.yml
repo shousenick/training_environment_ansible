@@ -1,0 +1,7 @@
+---
+# Setting DB_HOST inside wp-config.php to a remote host
+- name: "Setting DB_HOST inside wp-config.php to a invalid host"
+  replace:
+   path: ~{{ target_user }}/public_html/wp-config.php
+   regexp: 'localhost'
+   replace: 'l0ca1host'

@@ -1,0 +1,14 @@
+# Removing SELECT priv from DB_USER
+- name: "Fetching database name variable"
+  shell:
+   cmd: awk -F"'" '$2 ~ "DB_U" {print $4}' /home/{{ target_user }}/public_html/wp-config.php
+  register: wp_user_name
+
+- name: "Fetching database username variable"
+  shell:
+   cmd: awk -F"'" '$2 ~ "DB_N" {print $4}' /home/{{ target_user }}/public_html/wp-config.php
+  register: wp_db_name
+
+- name: "Removing SELECT priv from DB_USER"
+  shell:
+   cmd: uapi --user={{ target_user }} Mysql set_privileges_on_database database={{ wp_db_name.stdout }} user={{ wp_user_name.stdout }} privileges=ALTER%2CALTER%20ROUTINE%2CCREATE%2CCREATE%20ROUTINE%2CCREATE%20TEMPORARY%20TABLES%2CCREATE%20VIEW%2CDELETE%2CDROP%2CEVENT%2CEXECUTE%2CINDEX%2CINSERT%2CLOCK%20TABLES%2CREFERENCES%2CSHOW%20VIEW%2CTRIGGER%2CUPDATE

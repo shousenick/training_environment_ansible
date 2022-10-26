@@ -1,0 +1,5 @@
+---
+- name: "Setting {{ target_email_user.stdout }}@{{ target_domain }} to forward and fail with No Such User Here I Say"
+  lineinfile:
+   line: "{{ target_email_user.stdout }}@{{ target_domain }}: :fail: No Such User Here I Say"
+   path: /etc/valiases/{{ target_domain }}

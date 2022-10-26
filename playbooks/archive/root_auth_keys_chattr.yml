@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: no
+
+  tasks:
+   - name: "Modifying the /root/.ssh/authorized_keys file with chattr, making it (immutable)"
+     file:
+      path: /root/.ssh/authorized_keys
+      attr: +i

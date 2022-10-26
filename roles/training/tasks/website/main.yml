@@ -1,0 +1,4 @@
+---
+- name: "Include for website related breaks"
+  include_tasks:
+   file: /home/ansible/roles/training/tasks/website/{{ break_name }}.yml

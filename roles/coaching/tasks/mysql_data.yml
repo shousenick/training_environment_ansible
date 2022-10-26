@@ -1,0 +1,12 @@
+---
+- name: "create database"
+  shell: 
+   cmd: 'uapi --user={{ target_user }} Mysql create_database name={{ target_user }}_wp'
+
+- name: "create user"
+  shell:
+   cmd: 'uapi --user={{ target_user }} Mysql create_user name={{ target_user }}_wp password={{ wp_password.stdout }}'
+
+- name: "add privs"
+  shell: 
+   cmd: 'uapi --user={{ target_user }} Mysql set_privileges_on_database user={{ target_user }}_wp database={{ target_user }}_wp privileges=ALL'

@@ -1,0 +1,12 @@
+---
+- name: "Include for date variable"
+  include_tasks:
+   file: setting_date_variable.yml
+
+- name: "Include for dns zone template"
+  include_tasks:
+   file: default_dns_zone.yml
+
+- name: "Include for named.conf modification"
+  include_tasks:
+   file: modify_namedconf.yml 

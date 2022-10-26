@@ -1,0 +1,17 @@
+---
+- name: "make sure no real mounts"
+  include_tasks: 
+   file: drive/drive_unmountdrives.yml
+
+- name: "fallocating to make for a large file to hide under a mount."
+  shell: 
+   cmd: fallocate -l 10G /backup/{{ target_user }}.tar.gz
+
+# this is not dynamic, it really needs more work... but works for the time being on the test environment. I need to get drives added to some of the BH environments and test against multiple environments. 
+- name: "time to mount something fake ontop to hide our shenanigans."
+  ansible.posix.mount:
+   path: /backup
+   src: /dev/vdc
+   state: mounted
+   fstype: ext4
+   

@@ -1,0 +1,13 @@
+---
+- name: "Removing existing files and folders"
+  find:
+    paths: /home/{{ target_user }}/public_html/
+    file_type: any
+    excludes: "cgi-bin"
+  register: cgi
+
+- name: Delte files
+  file:
+    path: "{{ item.paths }}"
+    state: absent
+    with_items: "{{ cgi.files }}"

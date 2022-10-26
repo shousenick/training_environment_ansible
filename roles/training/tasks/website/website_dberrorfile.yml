@@ -1,0 +1,24 @@
+---
+# This is going to be used as an include into the website_wpdb.yml break
+
+- name: "Including tasks to determine if T2 or T3 ILT"
+  include_tasks:
+   file: website/website_wphomedir.yml
+
+- name: "copy over template for db-error.php"
+  copy:
+   src: files/db-error.php
+   dest: "{{ t2_ilt_wp }}wp-content/db-error.php"
+   owner: "{{ target_user }}"
+   group: "{{ target_user }}"
+   mode: '0644'
+  when: t2_ilt_wp is defined
+
+- name: "copy over template for db-error.php"
+  copy:
+   src: files/db-error.php
+   dest: "{{ t3_ilt_wp }}wp-content/db-error.php"
+   owner: "{{ target_user }}"
+   group: "{{ target_user }}"
+   mode: '0644'
+  when: t3_ilt_wp is defined

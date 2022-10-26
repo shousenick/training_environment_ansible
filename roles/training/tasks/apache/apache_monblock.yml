@@ -1,0 +1,9 @@
+---
+- name: "Place HG TOS CPU restriction on acct."
+  copy:
+   src: files/monblock_htaccess.txt
+   dest: /home/{{ target_user }}/.htaccess
+   group: "{{ target_user }}"
+   owner: "{{ target_user }}"
+   mode: '0644'
+   backup: yes

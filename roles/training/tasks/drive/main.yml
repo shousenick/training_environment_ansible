@@ -1,0 +1,4 @@
+---
+- name: "Include for drive related breaks"
+  include_tasks:
+   file: /home/ansible/roles/training/tasks/drive/{{ break_name }}.yml

@@ -1,0 +1,14 @@
+- name: create folder in user directory for myisamdberror
+  file:
+   path: /home/{{ target_user }}/myisamdberror
+   state: directory
+   mode: '0755'
+   owner: "{{ target_user }}"
+   group: "{{ target_user }}"
+
+- name: copy over file Moodle Strace file
+  copy:
+   src: files/db_con_error
+   dest: /home/{{ target_user }}/myisamdberror
+   group: "{{ target_user }}"
+   owner: "{{ target_user }}"

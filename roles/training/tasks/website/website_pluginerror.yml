@@ -1,0 +1,6 @@
+#Removing old .htaccess in case agent made changes we cant anticipate. Adding new .htaccess and bad default wordpress code to get permalink error
+- name: "Currpting Really Simple SSL plugin"
+  replace:
+   path: ~{{ target_user }}/public_html/wp-content/plugins/really-simple-ssl/rlrsssl-really-simple-ssl.php
+   regexp: 'return REALLY_SIMPLE_SSL'
+   replace: 'return REALLY_SIMPLE_SSL1'

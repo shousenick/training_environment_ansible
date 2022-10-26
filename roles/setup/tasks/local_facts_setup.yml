@@ -1,0 +1,17 @@
+---
+- name: "Creating local facts file path"
+  file:
+   path: /etc/ansible/facts.d/
+   state: directory
+
+- name: "Creating local facts file"
+  blockinfile:
+   path: /etc/ansible/facts.d/cpanel_details.fact
+   create: yes
+   marker: ""
+   block: |
+    [cpanel_info]
+    hostname={{ ansible_host }}
+    domain={{ domain }}
+    username={{ cpanel_username }}
+

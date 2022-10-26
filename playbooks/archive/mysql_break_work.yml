@@ -1,0 +1,14 @@
+---
+- hosts: all
+
+  tasks: 
+  - name: "populate service facts"
+    service_facts:
+  - debug:
+      msg: "{{ ansible_facts.services }}"
+#     msg: "{{ ansible_facts.services.mysqld.name }}" 
+
+#  - name: "Stopping MySQL service"
+#    service:
+#     name: "{{ (ansible_facts['services']['mysqld'] is defined) | ternary('mysqld','mysql') }}"
+#     state: stopped

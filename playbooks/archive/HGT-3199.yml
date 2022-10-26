@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: no
+
+  tasks:
+   - name: "yum install whois"
+     yum:
+      name: whois
+      state: present

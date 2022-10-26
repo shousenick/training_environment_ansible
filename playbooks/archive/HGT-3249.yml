@@ -1,0 +1,9 @@
+---
+- hosts: ja_minions
+  become: yes
+  gather_facts: no
+
+  tasks:
+   - name: "Removing cPanel accounts"
+     shell:
+      cmd: 'cut -d: -f1 /etc/trueuserowners | while read cpuser ; do whmapi1 removeacct user=$cpuser ; done'

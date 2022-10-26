@@ -1,0 +1,16 @@
+---
+- hosts: all
+  remote_user: root
+  pre_tasks:
+   - pause:
+      prompt: "Provide intended domain"
+     register: domain_prompt
+   - set_fact:
+      domain: "{{ domain_prompt.user_input }}"
+   - pause:
+      prompt: "Provide cPanel username"
+     register: user_prompt
+   - set_fact:
+      cpanel_username: "{{ user_prompt.user_input }}"
+  roles:
+   - '/home/ansible/roles/setup'

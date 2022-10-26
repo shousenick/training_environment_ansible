@@ -1,0 +1,5 @@
+---
+- set_fact:
+   target_user: "{{ ansible_local.cpanel_details.cpanel_info.username }}"
+   target_domain: "{{ ansible_local.cpanel_details.cpanel_info.domain }}"
+   target_hostname: "{{ ansible_local.cpanel_details.cpanel_info.hostname }}"

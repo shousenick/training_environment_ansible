@@ -1,0 +1,10 @@
+---
+- name: "Creating ansible user"
+  shell: 
+   cmd: useradd ansible
+
+- name: "Adding ansible user to /etc/sudoers"
+  lineinfile:
+   path: /etc/sudoers
+   insertafter: '^root'
+   line: 'ansible ALL=(ALL) NOPASSWD:ALL'

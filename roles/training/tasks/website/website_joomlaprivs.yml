@@ -1,0 +1,14 @@
+---
+- name: "Setting database name variable"
+  shell: 
+   cmd: awk -F"'" '/\$db /{print $2}' /home/{{ target_user }}/public_html/joomla/configuration.php
+  register: joomla_db_name
+
+- name: "Setting database username variable"
+  shell:
+   cmd: awk -F"'" '/\$user /{print $2}' /home/{{ target_user }}/public_html/joomla/configuration.php
+  register: joomla_db_username
+
+- name: "Removing SELECT privilege from Joomla MySQL user"
+  shell: 
+   cmd: uapi --user={{ target_user }} Mysql set_privileges_on_database database={{ joomla_db_name.stdout }} user={{ joomla_db_username.stdout }} privileges=ALTER%2CALTER%20ROUTINE%2CCREATE%2CCREATE%20ROUTINE%2CCREATE%20TEMPORARY%20TABLES%2CCREATE%20VIEW%2CDELETE%2CDROP%2CEVENT%2CEXECUTE%2CINDEX%2CINSERT%2CLOCK%20TABLES%2CREFERENCES%2CSHOW%20VIEW%2CTRIGGER%2CUPDATE

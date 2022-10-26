@@ -1,0 +1,8 @@
+---
+- name: "Setting date variable"
+  shell: date +%Y%m%d%k
+  register: date_input
+
+- set_fact:
+   date: "{{ date_input.stdout }}"
+

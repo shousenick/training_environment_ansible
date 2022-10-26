@@ -1,0 +1,4 @@
+---
+- name: "Include for Apache breaks"
+  include_tasks:
+   file: /home/ansible/roles/training/tasks/apache/{{ break_name }}.yml

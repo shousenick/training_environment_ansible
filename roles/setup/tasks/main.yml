@@ -1,0 +1,36 @@
+---
+- name: "Setting up ansible user on target"
+  include_tasks:
+   file: user_setup.yml
+
+- name: "Setting up ansible's ssh dir"
+  include_tasks:
+   file: ssh_dir_setup.yml
+
+- name: "Copying ssh keys over to target"
+  include_tasks: 
+   file: copy_keys.yml
+
+- name: "setting up local facts on target"
+  include_tasks:
+   file: local_facts_setup.yml
+
+- name: "Modifying motd on target"
+  include_tasks:
+   file: motd.yml
+
+- name: "Install perl packages for pwtemp"
+  include_tasks:
+   file: pwtemp_perl_modules.yml
+
+- name: "HGT-3258, allowing remote and unregistered domains in cPanel config"
+  include_tasks:
+   file: HGT-3258.yml
+
+- name: "HGT-3259, fixing missing lynx and whois"
+  include_tasks:
+   file: HGT-3259.yml
+
+- name: "Installing the lftp"
+  include_tasks:
+   file: install_lftp.yml

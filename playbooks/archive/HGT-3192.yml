@@ -1,0 +1,23 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: no
+
+  tasks:
+   - name: "create /usr/local/bin/wp dir"
+     file:
+      path: /usr/local/bin/wp
+      state: directory
+
+   - name: "Obtain wp-cli core file"
+     get_url:
+      url: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+      dest: /usr/local/bin/wp
+      mode: '0755'
+
+   - name: "Modify /etc/bashrc to include wp alias for cPanel user"
+     lineinfile:
+      path: /etc/bashrc
+      line: alias wp='/usr/local/bin/wp/wp-cli.phar'
+      create: yes
+      backup: yes  

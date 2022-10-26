@@ -1,0 +1,7 @@
+---
+- name: "Include for creation of support@ email address"
+  include: email_emailcreation.yml
+ 
+- name: "Restricting outgoing mail for support email account"
+  shell:
+   cmd: uapi --user={{ target_user }} Email suspend_outgoing email=support%40{{ target_domain }}

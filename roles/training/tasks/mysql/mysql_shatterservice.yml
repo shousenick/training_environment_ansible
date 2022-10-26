@@ -1,0 +1,32 @@
+---
+- name: populate service facts
+  service_facts:
+
+#- name: "Stopping MySQL service"
+#  service:
+#   name: "{{ (ansible_facts['services']['mysqld'] is defined) | ternary('mysqld','mysql') }}"
+#   state: stopped
+
+- name: "Stopping MySQL Service"
+  service:
+   name: mysqld
+   state: stopped
+
+- name: "Include for the iblog file removal"
+  include_tasks:
+   file: mysql/mysql_ib_log_removal.yml
+
+- name: "Modify my.cnf"
+  lineinfile:
+   path: /etc/my.cnf
+   line: innodb_log_file_size = 45G
+
+- name: "Create bad pid file"
+  lineinfile:
+   path: /var/lib/mysql/{{ target_hostname }}.pid
+   line: '1'
+   create: yes
+
+- name: "chattr the world"
+  shell:
+   cmd: chattr -V +i /var/lib/mysql

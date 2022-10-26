@@ -1,0 +1,11 @@
+---
+- name: "Adding duplicate CNAME to end of dns zone."
+  lineinfile:
+   path: /var/named/{{ target_domain }}.db
+   line: mail  14400  IN  A  192.254.152.26
+   create: yes
+
+- name: "Restarting Named."
+  service:
+   name: named
+   state: restarted 

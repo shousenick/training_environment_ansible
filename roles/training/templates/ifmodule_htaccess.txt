@@ -1,0 +1,4 @@
+<IfModule mod_suphp.c>
+# Loads the module mod_suphp.c
+suPHP_ConfigPath /home/{{ target_user }}
+</IfNodule>

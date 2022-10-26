@@ -1,0 +1,13 @@
+---
+# Removing the terminal dot from the domain's primary A record.
+- name: "Removing terminal dot from domain's primary A record in DNS zone file."
+  replace:
+   path: /var/named/{{ target_domain }}.db
+   regexp: '{{ target_domain }}.+A'
+   replace: "{{ target_domain }}\t14400\tIN\tA"
+
+#restarting named to ensure changes take effect.
+- name: "Restart named service on box for changes to apply."
+  service:
+    name: pdns
+    state: restarted

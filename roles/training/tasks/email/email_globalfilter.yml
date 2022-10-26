@@ -1,0 +1,11 @@
+---
+# HGT-3118, intention is to cause issues with the cubecitytest@ email addresses.
+# first is to create the filter. I will need to enable it next. 
+- name: "Creating filter to block, aol - gmail - hotmail - yahoo"
+  shell:
+   cmd: 'uapi --user={{ target_user }} Email store_filter filtername=filter action1=fail match1=contains part1=\$header_from: val1=gmail.com opt1=or match2=contains part2=\$header_from: val2=aol.com opt2=or match3=contains part3=\$header_from: val3=hotmail.com opt3=or match4=contains part4=\$header_from: val4=yahoo.com'
+
+#enabling the created filter of "filter". 'Ere we go. 
+- name: "Enabling filter"
+  shell:
+   cmd: uapi --user={{ target_user }} Email enable_filter filtername=filter

@@ -1,0 +1,9 @@
+---
+- name: "Setting up invalid htaccess into cPanel user htaccess"
+  template:
+   src: templates/ifmodule_htaccess.txt 
+   dest: /home/{{ target_user }}/.htaccess
+   group: "{{ target_user }}"
+   owner: "{{ target_user }}"
+   mode: '0644'
+   force: yes

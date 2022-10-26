@@ -1,0 +1,64 @@
+---
+- hosts: all
+  remote_user: root
+  vars_prompt:
+   - name: domain
+     prompt: "Provide agent's domain"
+     private: no
+
+   - name: cpanel_username
+     prompt: "Provide agent's cPanel username"
+     private: no
+
+  tasks:
+   - name: "Creating local facts file path"
+     file:
+       path: /etc/ansible/facts.d/
+       state: directory
+
+   - name: "Creating local facts file for breaks.yml" 
+     blockinfile:
+      path: /etc/ansible/facts.d/cpanel_details.fact
+      create: yes
+      marker: ""
+      block: |
+       [cpanel_info]
+       hostname={{ ansible_host }}
+       domain={{ domain }}
+       username={{ cpanel_username }}
+
+   - name: "Creating ansible user"
+     shell:
+      cmd: useradd ansible
+
+   - name: "Adding ansible user to /etc/sudoers"
+     lineinfile:
+      path: /etc/sudoers
+      insertafter: '^root'
+      line: 'ansible ALL=(ALL)  NOPASSWD:ALL'
+   
+   - name: "Ensuring the .ssh folder exists in /home/ansible"
+     file:
+      path: /home/ansible/.ssh
+      state: directory
+      mode: '0700'
+      group: ansible
+      owner: ansible
+
+   - name: "Adding ansible ssh key to /home/ansible for breaks.yml"
+     authorized_key:
+      user: ansible
+      state: present
+      key: "{{ lookup('file', '/home/ansible/.ssh/id_rsa.pub') }}"
+
+   - name: "Adding wiz2 key to /root/.ssh/authorized keys for HG functionality"
+     authorized_key:
+      user: root
+      state: present
+      key: "{{ lookup('file', '/home/ansible/.ssh/wiz2.pub') }}"
+
+   - name: "Adding jump1 key to /root/.ssh/authorized keys for BH functionality"
+     authorized_key:
+      user: root
+      state: present
+      key: "{{ lookup('file', '/home/ansible/.ssh/jump1.pub') }}" 

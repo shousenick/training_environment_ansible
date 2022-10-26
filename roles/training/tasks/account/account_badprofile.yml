@@ -1,0 +1,4 @@
+---
+- name: "Changes cPanel environment so the accounts will only display DNS options."
+  shell: 
+   cmd: whmapi1 start_profile_activation code=DNSNODE

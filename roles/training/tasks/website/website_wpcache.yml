@@ -1,0 +1,36 @@
+---
+- name: "Pulling include for wp homedir dependent on ILT"
+  include_tasks:
+   file: website/website_wphomedir.yml
+
+- name: "Remove Cache for T2 ILT"
+  file:
+   path: "{{ t2_ilt_wp }}wp-content/cache/supercache/{{ target_domain }}/index.html"
+   state: absent
+  when: t2_ilt_wp is defined
+
+- name: "Create broken cache file for T2 ILT"
+  lineinfile:
+   path: "{{ t2_ilt_wp }}/wp-content/cache/supercache/{{ target_domain }}/index.html"
+   line: "<br /><b>Warning</b>:  mysqli_query(): (HY000/1030): Got error 28 from storage engine in<b> {{ t2_ilt_wp }}/wp-includes/wp-db.php</b> on line <b>2007</b><br />"
+   create: yes
+   group: "{{ target_user }}"
+   owner: "{{ target_user }}"
+   mode: "0644"
+  when: t2_ilt_wp is defined
+
+- name: "Remove cache for T3 ILT"
+  file:
+   path: "{{ t3_ilt_wp }}blog/wp-content/cache/supercache/{{ target_domain }}/index.html"
+   state: absent
+  when: t3_ilt_wp is defined
+
+- name: "Create broken cache file for T3 ILT"
+  lineinfile:
+   path: "{{ t3_ilt_wp }}/wp-content/cache/supercache/{{ target_domain }}/index.html"
+   line: "<br /><b>Warning</b>:  mysqli_query(): (HY000/1030): Got error 28 from storage engine in<b> {{ t3_ilt_wp }}wp-includes/wp-db.php</b> on line <b>2007</b><br />"
+   create: yes
+   group: "{{ target_user }}"
+   owner: "{{ target_user }}"
+   mode: "0644"
+  when: t3_ilt_wp is defined

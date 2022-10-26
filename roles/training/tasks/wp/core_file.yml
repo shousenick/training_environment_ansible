@@ -1,0 +1,28 @@
+---
+- name: "obtain core files"
+  get_url: 
+   url: https://wordpress.org/latest.tar.gz
+   dest: /home/{{ target_user }}/public_html/
+
+- name: "Because wordpress.org cant control themselves with file naming"
+  find:
+   path: /home/{{ target_user }}/public_html/
+   patterns: '*.tar.gz'
+  register: compressed_core_file
+
+- name: "Extract content"
+  unarchive:
+   src: "{{ compressed_core_file.files[0].path }}"
+   dest: /home/{{ target_user }}/public_html/
+   remote_src: yes
+   extra_opts: [--strip-components=1]
+
+- name: "moving sample file into place"
+  copy:
+   src: /home/{{ target_user }}/public_html/wp-config-sample.php
+   dest: /home/{{ target_user }}/public_html/wp-config.php
+   remote_src: yes
+
+- name: "fixing perms"
+  shell: 
+   cmd: /root/bin/perms {{ target_user }}

@@ -1,0 +1,12 @@
+---
+- name: "Removing {{ target_domain }} from /etc/localdomains"
+  lineinfile:
+   path: /etc/localdomains
+   regexp: "{{ target_domain }}"
+   state: absent
+
+- name: "Adding {{ target_domain }} to /etc/remotedomains"
+  lineinfile:
+   path: /etc/remotedomains
+   line: "{{ target_domain }}"
+   state: present

@@ -1,0 +1,15 @@
+---
+- name: "Including tasks to determine if T2 or T3 ILT"
+  include_tasks:
+   file: website/website_wphomedir.yml
+
+- name: "Alter permissions of .css files in public_html/wp-content if T2 ILT"
+  shell:
+   cmd: find {{ t2_ilt_wp }}/wp-content -type f -name "*.css" -exec chmod -v 0100 "{}" \; 
+  when: t2_ilt_wp is defined
+
+- name: "Alter permissions of .css files in public_html/blog/wp-content if T3 ILT"
+  shell:
+   cmd: find {{ t3_ilt_wp }}/wp-content -type f -name "*.css" -exec chmod -v 0100 "{}" \; 
+  when: t3_ilt_wp is defined
+

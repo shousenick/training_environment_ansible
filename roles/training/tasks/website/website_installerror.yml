@@ -1,0 +1,6 @@
+- name: "Setting incorrect table prefix in wp-config.php file"
+  replace:
+   path: ~{{ target_user }}/public_html/wp-config.php
+   regexp: 'wp_'
+   replace: 'wpy_'
+

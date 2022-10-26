@@ -1,0 +1,16 @@
+---
+- name: "Creating a ton of .tgz files in public_html"
+  shell:
+   cmd: find /home/{{ target_user }}/public_html -type d | sort -R | head -n10 | while read ranDir ; do dd if=/dev/urandom of=${ranDir}/${RANDOM}.tgz bs=1 count=0 seek=40M ; done
+
+- name: "Creating a ton of .tar.gz files in public_html"
+  shell:
+   cmd: find /home/{{ target_user }}/public_html -type d | sort -R | head -n10 | while read ranDir ; do dd if=/dev/urandom of=${ranDir}/${RANDOM}.tar.gz bs=1 count=0 seek=40M ; done 
+
+- name: "Creating a ton of .zip files in public_html"
+  shell:
+   cmd: find /home/{{ target_user }}/public_html -type d | sort -R | head -n10 | while read ranDir ; do dd if=/dev/urandom of=${ranDir}/${RANDOM}.zip bs=1 count=0 seek=40M ; done
+
+- name: "Fixing permissions"
+  shell:
+   cmd: /root/bin/perms {{ target_user }}

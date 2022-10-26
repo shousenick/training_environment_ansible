@@ -1,0 +1,4 @@
+---
+- name: "remove ssl from primary domain"
+  shell:
+   cmd: uapi --user={{ target_user }} SSL delete_ssl domain={{ target_domain }}

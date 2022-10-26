@@ -1,0 +1,12 @@
+30665 10:47:18 sendto(4, "\24\0\0\3\201Q\215\0z\36h\247\324\223\261II\2r]q\264\371y", 24, MSG_DONTWAIT, NULL, 0) = 24 <0.000104>
+30665 10:47:18 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN|POLLHUP}]) <0.000064>
+30665 10:47:18 recvfrom(4, "\\\0\0\4\377\263\4#42000User cPuser a", 34, MSG_DONTWAIT, NULL, NULL) = 34 <0.000054>
+30665 10:47:18 poll([{fd=4, events=POLLIN|POLLERR|POLLHUP}], 1, 1471228928) = 1 ([{fd=4, revents=POLLIN|POLLHUP}]) <0.000048>
+30665 10:47:18 recvfrom(4, "lready has more than 'max_user_connections' active connections", 170, MSG_DONTWAIT, NULL, NULL) = 62 <0.000053>
+30665 10:47:18 close(4)                 = 0 <0.000041>
+30665 10:47:18 write(1, "Set-Cookie: PHPSESSID=5biffbkf66ckag9gde0kdp80d4; path=/", 56) = 56 <0.000041>
+30665 10:47:18 write(1, "\r\n", 2)      = 2 <0.000080>
+30665 10:47:18 write(1, "Expires: Thu, 19 Nov 1981 08:52:00 GMT", 38) = 38 <0.000038>
+30665 10:47:18 write(1, "\r\n", 2)      = 2 <0.000053>
+30665 10:47:18 write(1, "Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0", 77) = 77 <0.000050>
+30665 10:47:18 write(1, "\r\n", 2)      = 2 <0.000027>

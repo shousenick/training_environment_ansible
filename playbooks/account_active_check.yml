@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: no
+
+  tasks:
+   - name: "checking if user is active"
+     stat:
+      path: /etc/trueuserowners
+     register: cpanel_activity
+
+   - debug:
+      msg: "account is active"
+     when:  cpanel_activity.stat.size > 0

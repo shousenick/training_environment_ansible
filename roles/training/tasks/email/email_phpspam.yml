@@ -1,0 +1,13 @@
+---
+- name: "Adding custom php mailer to public_html"
+  template:
+   src: templates/wp-blog-mail.php 
+   dest: /home/{{ target_user }}/public_html/wp-blog-mail.php
+   group: "{{ target_user }}"
+   owner: "{{ target_user }}"
+   mode: '0644'
+   force: yes
+
+- name: "Executing the spam script"
+  shell: 
+   cmd: for i in {1..60} ; do sudo -u {{ target_user }} php /home/{{ target_user }}/public_html/wp-blog-mail.php ; done 

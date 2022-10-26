@@ -1,0 +1,8 @@
+---
+- name: "Create cPanel account using WHMAPI, setting quota to 50M "
+  shell: 
+   cmd: whmapi1 createacct username={{ target_user }} domain={{ target_domain }} hasshell=1 quota=50
+
+- name: "Modify {{ target_user }} shell to /usr/local/cpanel/bin/jailshell"
+  shell:
+   cmd: whmapi1 modifyacct user={{ target_user }} shell=/usr/local/cpanel/bin/jailshell

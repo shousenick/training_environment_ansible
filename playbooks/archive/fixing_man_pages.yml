@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: no
+
+  tasks:
+   - name: "modify cpanel /var/cpanel/exim.conf.deps"
+     lineinfile:
+      line: /etc/man_db.conf
+      path: /var/cpanel/exim.conf.deps
+      create: yes

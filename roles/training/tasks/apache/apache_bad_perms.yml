@@ -1,0 +1,7 @@
+# Changing perms for index.php to 000
+- name: "Changing permissions for index.php to 000."
+  file:
+   path: ~{{ target_user }}/public_html/index.php
+   owner: '{{ target_user }}'
+   group: '{{ target_user }}'
+   mode: '0000' 

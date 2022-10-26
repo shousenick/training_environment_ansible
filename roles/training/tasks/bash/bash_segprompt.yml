@@ -1,0 +1,53 @@
+---
+- name: "Modify bash prompt for Cent7"
+  blockinfile:
+   path: /etc/bashrc
+   block: |
+    PS1='Segmentation Fault'
+    TMOUT=5
+   create: yes
+  when:
+   - ansible_facts['distribution'] == "CentOS"
+   - ansible_facts['distribution_major_version'] == "7"
+
+
+#- name: "Modify bash prompt for Cent7"
+#  lineinfile:
+#   path: /etc/bashrc
+#   regexp: '^PS1'
+#   line: PS1='Segmentation Fault'  when:
+#   -  ansible_distribution == "CentOS"
+#   -  ansible_distribution_major_version == "7"
+
+#- name: "Add TMOUT to Cent7 bash prompt"
+#  lineinfile:
+#   path: /etc/bashrc
+#   line: TMOUT=5
+#  when:
+#   -  ansible_distribution == "CentOS"
+#   -  ansible_distribution_major_version == "7"
+
+- name: "Modify bash prompt for Cent6"
+  lineinfile:
+   path: /etc/bashrc
+   regexp: '^PS1'
+   line: PS1='Segmentation Fault'
+  when:
+   -  ansible_distribution == "CentOS"
+   -  ansible_distribution_major_version == "6"
+
+- name: "Add TMOUT to Cent6 bash prompt"
+  lineinfile: 
+   path: /etc/bashrc
+   line: TMOUT=5
+  when:
+   -  ansible_distribution == "CentOS"
+   -  ansible_distribution_major_version == "6"
+
+- name: "killing bash prompt"
+  shell:
+   cmd: killall -9 bash
+
+#- name:
+#  debug: 
+#  msg: "{{ ansible_distribution }}"

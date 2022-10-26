@@ -1,0 +1,21 @@
+#Removing old .htaccess in case agent made changes we cant anticipate. Adding new .htaccess and bad default wordpress code to get permalink error
+
+- name: "Removing old ~/public_html/.htaccess in case changes are in there we don't anticipate."
+  file:
+   path: ~{{ target_user }}/public_html/.htaccess
+   state: absent
+
+- name: "Adding fresh .htaccess to ~/public_html."
+  file:
+   path: ~{{ target_user }}/public_html/.htaccess
+   group: '{{ target_user }}'
+   owner: '{{ target_user }}'
+   mode: '0644'
+   state: touch
+
+- name: "Setting default wordpress lines in ~{{ target_user }}/public_html/.htaccess.."
+  lineinfile:
+   path: ~{{ target_user }}/public_html/.htaccess
+   regexp: '^$'
+   insertafter: '^$'
+   line: "# BEGIN WordPress\nRewriteEngine On\nRewriteBase /\nRewriteCond %{REQUEST_FILENAME} !-f\nRewriteCond %{REQUEST_FILENAME} !-d\nRewriteRule  /index.php [L]\n# END WordPress"

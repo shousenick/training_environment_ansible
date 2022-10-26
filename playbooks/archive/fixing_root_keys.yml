@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: no
+
+  tasks:
+   - name: "Adding ansible ssh key to root's authorized keys"
+     authorized_key:
+      user: root
+      state: present
+      key: "{{ lookup('file', '/home/ansible/.ssh/id_rsa.pub') }}"
+
+   - name: "making sure motd is good"
+     copy:
+      src: /home/ansible/roles/setup/files/motd
+      dest: /etc/motd
+      force: yes

@@ -1,0 +1,14 @@
+@	14400	IN	SOA	ns1.{{ provided_domain }}.	dnsadmin.nonblinking.com.	(
+											{{ date }}	;Serial
+											3H		;Refresh
+											15M		;Retry
+											1W		;Expire
+											1D		;Minimum TTL
+											)
+
+
+;Name Server Information
+{{ provided_domain }}.	IN	NS	ns1.{{ provided_domain }}.
+{{ provided_domain }}.	IN	NS	ns2.{{ provided_domain }}.
+ns1.{{ provided_domain }}.	IN	A	{{ provided_first_ip }}
+ns2.{{ provided_domain }}.	IN	A	{{ provided_second_ip }}

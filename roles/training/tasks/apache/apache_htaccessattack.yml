@@ -1,0 +1,24 @@
+---
+- name: "Locate all directories within public_html"
+  find:
+   paths: /home/{{ target_user }}/public_html
+   file_type: directory
+   recurse: yes
+  register: directory_list
+
+#- name: "looking at list of directories"
+#  debug:
+#   msg: "{{ item }}"
+#  loop: "{{ directory_list | json_query('files[*].path') }}"
+
+- name: "Place massive htaccess in each of found directories"
+  copy:
+   src: files/bad_htaccess.txt
+   dest: "{{ target_dir }}/.htaccess"
+   owner: "{{ target_user }}"
+   group: "{{ target_user }}"
+   mode: '0644'
+   backup: yes
+  vars:
+   target_dir: "{{ item }}"
+  loop: "{{ directory_list | json_query('files[*].path') }}"

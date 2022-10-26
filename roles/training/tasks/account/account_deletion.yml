@@ -1,0 +1,5 @@
+---
+# modified from HGT-3249
+- name: "Removing any existing cPanel account"
+  shell:
+   cmd: 'cut -d: -f1 /etc/trueuserowners | while read cpuser ; do whmapi1 removeacct user=$cpuser ; done'

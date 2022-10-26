@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: no
+  
+  tasks:
+   - name: "making sure motd is good"
+     copy:
+      src: /home/ansible/roles/setup/files/motd
+      dest: /etc/motd
+      force: yes

@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: no
+
+  tasks:
+   - name: "enabling hash"
+     replace:
+      path: /var/cpanel/cpanel.config
+      regexp: 'allow_deprecated_accesshash=0'
+      replace: 'allow_deprecated_accesshash=1'

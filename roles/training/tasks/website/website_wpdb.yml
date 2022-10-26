@@ -1,0 +1,28 @@
+---
+- name: "Including tasks to determine if T2 or T3 ILT"
+  include_tasks:
+   file: website/website_wphomedir.yml
+
+- name: "Change DB_HOST from localhost to 1oca1host if T2 ILT"
+  lineinfile:
+   path: "{{ t2_ilt_wp }}/wp-config.php"
+   regexp: 'localhost'
+   line: "define( 'DB_HOST', '1oca1host' );"
+  when: t2_ilt_wp is defined
+
+- name: "db-error.php for T2 ILT"
+  include_tasks:
+   file: website/website_dberrorfile.yml
+  when: t2_ilt_wp is defined
+
+- name: "Change DB_HOST from localhost to 1oca1host if T3 ILT"
+  lineinfile:
+   path: "{{ t3_ilt_wp }}/wp-config.php"
+   regex: 'localhost'
+   line: "define( 'DB_HOST', '1oca1host' );"
+  when: t3_ilt_wp is defined
+
+- name: "db-error.php for T3 ILT"
+  include_tasks:
+   file: website/website_dberrorfile.yml
+  when: t3_ilt_wp is defined

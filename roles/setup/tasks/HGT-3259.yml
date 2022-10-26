@@ -1,0 +1,7 @@
+---
+- name: "Fixing missing lynx and jwhois packages"
+  yum:
+   name:
+    - lynx
+    - jwhois
+   state: present

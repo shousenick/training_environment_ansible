@@ -1,0 +1,54 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: no
+
+  tasks:
+   - name: "allowing access to sshd_config"
+     blockinfile:
+      block: |
+       # Add this to allow access from the jump boxes
+       TrustedUserCAKeys /etc/ssh/ca.pub
+       AuthorizedPrincipalsFile /etc/ssh/auth_principals/%u
+      marker: ""
+      dest: /etc/ssh/sshd_config
+      backup: yes
+
+   - name: "carrying over the UAP ca.pub"
+     copy:
+      src: /home/ansible/roles/setup/files/ca.pub 
+      dest: /etc/ssh/ca.pub
+      owner: root
+      group: root
+      mode: '0644'
+
+   - name: "making auth_principals folder"
+     file:
+      path: /etc/ssh/auth_principals
+      state: directory
+
+   - name: "User groups getting set up"
+     lineinfile:
+      line: support_dedicated
+      create: yes
+      path: /etc/ssh/auth_principals/root
+
+   - name: "modifying HG firewall"
+     blockinfile:
+      block: |
+       iptables -I INPUT -s 162.241.18.61 -j ACCEPT -m comment --comment Managed-Support-Access
+       iptables -I INPUT -s 162.214.41.61 -j ACCEPT -m comment --comment Managed-Support-Access
+      marker: ""
+      dest: /etc/firewall/INCLUDE
+
+# cause I'm only rocking cent7 atm, not going to even consider checking alternatives.
+
+   - name: "restarting iptables" 
+     service:
+      name: firewall
+      state: restarted
+
+   - name: "restarting sshd"
+     service:
+      name: sshd
+      state: restarted

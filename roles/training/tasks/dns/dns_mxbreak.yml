@@ -1,0 +1,13 @@
+---
+# modifying DNS zone's A record to ensure that it breaks the MX record that's dependent on the domain's A record.
+- name: "Modiying DNS zone."
+  replace:
+   path: /var/named/{{ target_domain }}.db
+   regexp: '{{ target_domain }}.+A.+(\d{1,3}\.){3}\d{1,3}'
+   replace: "{{ target_domain }}. 14400 IN A 127.0.0.1"
+
+#restarting named to ensure changes take effect.
+- name: "Restart named service on box for changes to apply."
+  service:
+   name: pdns  
+   state: restarted

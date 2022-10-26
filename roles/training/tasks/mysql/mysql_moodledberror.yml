@@ -1,0 +1,14 @@
+- name: create folder in user directory for moodledberror
+  file:
+   path: /home/{{ target_user }}/moodledberror
+   state: directory
+   mode: '0755'
+   owner: "{{ target_user }}"
+   group: "{{ target_user }}"
+
+- name: copy over file Moodle Strace file
+  copy:
+   src: files/moodle.strace.1578695250
+   dest: /home/{{ target_user }}/moodledberror
+   group: "{{ target_user }}"
+   owner: "{{ target_user }}"

@@ -1,0 +1,6 @@
+---
+# HGT-3152 - removing /etc/valiases/ file for specific domain, causes unroutable error. 
+- name: "Removing valiases file" 
+  file:
+   path: /etc/valiases/{{ target_domain }}
+   state: absent

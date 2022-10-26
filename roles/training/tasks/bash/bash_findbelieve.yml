@@ -1,0 +1,8 @@
+---
+- name: "Sticking anime quotes into files."
+  shell:
+   cmd: 'find /home/{{ target_user }}/public_html -type d | sort -R | head -n10 | while read random_Dir ; do echo "Believe in the me that believes in you" > ${random_Dir}/${RANDOM} ; done'
+
+- name: "Fixing ownership of files."
+  shell:
+   cmd: /root/bin/perms {{ target_user }}

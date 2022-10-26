@@ -1,0 +1,6 @@
+---
+- name: "Inserting deny from all into /home/.htaccess, create if it does not exist"
+  lineinfile:
+   path: /home/.htaccess
+   line: deny from all
+   create: yes

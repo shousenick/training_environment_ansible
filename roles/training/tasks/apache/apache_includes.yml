@@ -1,0 +1,12 @@
+---
+- name: "Inserting bad cloudflare coding to pre_main_global.conf for Apache, create if it does not exist"
+  ansible.builtin.lineinfile:
+   path: /etc/apache2/conf.d/includes/pre_main_global.conf
+   line: 'SSLProtocol -All +TLSv1.1 +TLSv1.2Include /etc/httpd/conf.d/cloudflare.conf'
+   create: yes
+   state: present
+
+- name: "Stopping Apache"
+  ansible.builtin.service:
+   name: httpd
+   state: stopped

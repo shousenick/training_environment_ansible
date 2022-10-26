@@ -1,0 +1,8 @@
+- name: "Changing index.php to a bad index.php"
+  shell:
+   cmd: mv /home/{{ target_user }}/public_html/index.php /home/{{ target_user }}/public_html/Index.php
+- name: "Setting Options -Indexes in ~{{ target_user }}/public_html/.htaccess.."
+  lineinfile:
+   path: ~{{ target_user }}/public_html/.htaccess
+   insertbefore: BOF
+   line: "Options -Indexes"

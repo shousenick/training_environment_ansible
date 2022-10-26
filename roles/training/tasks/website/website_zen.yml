@@ -1,0 +1,33 @@
+---
+- name: "Confirm that zen is installed in the proper directory...."
+  stat: 
+   path: /home/{{ target_user }}/public_html/zen
+  register: zen_home_dir
+
+- name: "Reporting that the directory for zen does not exist"
+  debug:
+   msg: Check environment please, I can not locate the public_html/zen folder.
+  when: zen_home_dir.stat.exists == false
+ 
+- name: "Confirm that the english.php file is in the directory I expect"
+  stat:
+   path: "{{ zen_home_dir.stat.path }}/includes/languages/english.php"
+  register: zen_english_file
+  when: zen_home_dir.stat.exists == true
+
+- name: "Reporting english.php file is missing."
+  debug: 
+   msg: Check the environment please, I can not locate the public_html/zen/includes/languages/english.php file. 
+  when: 
+   - zen_home_dir.stat.exists == true 
+   - zen_english_file.stat.exists == false
+
+- name: "Moving english.php to ENGLISH.php"
+  shell: 
+   cmd: mv -v {{ zen_english_file.stat.path }} {{ zen_home_dir.stat.path }}/includes/languages/ENGLISH.php
+  when:
+   - zen_home_dir.stat.exists == true
+   - zen_english_file.stat.exists == true
+
+
+

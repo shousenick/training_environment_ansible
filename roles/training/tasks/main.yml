@@ -1,0 +1,4 @@
+---
+- name: "Include for breaks, this works as long as break format is in ${service}/${service}_${break} format"
+  include_tasks:
+   file: "{{ break_name.split('_')[0] }}/main.yml"

@@ -1,0 +1,4 @@
+---
+- name: "Include for Account Management"
+  include_tasks:
+   file: /home/ansible/roles/training/tasks/account/{{ break_name }}.yml

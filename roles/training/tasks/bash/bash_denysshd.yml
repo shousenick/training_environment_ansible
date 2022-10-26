@@ -1,0 +1,7 @@
+---
+- name: "Adding deny for sshd to hosts.allow"
+  ansible.builtin.lineinfile:
+   path: /etc/hosts.allow
+   state: present
+   line: 'sshd : ALL : deny'
+   insertafter: EOF

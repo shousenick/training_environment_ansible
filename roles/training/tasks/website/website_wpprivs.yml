@@ -1,0 +1,32 @@
+---
+- name: "Including tasks to determine if T2 or T3 ILT"
+  include_tasks:
+   file: website/website_wphomedir.yml
+
+- name: "Setting database username variable for T2 ILT"
+  shell:
+   cmd: awk -F"'" '$2 ~ "DB_N" {print $4}' /home/{{ target_user }}/public_html/wp-config.php
+  register: wp_db_name
+  when: t2_ilt_wp is defined
+
+- name: "Setting database name variable for T2 ILT"
+  shell:
+   cmd: awk -F"'" '$2 ~ "DB_U" {print $4}' /home/{{ target_user }}/public_html/wp-config.php
+  register: wp_user_name
+  when: t2_ilt_wp is defined
+
+- name: "Setting database username variable for T3 ILT"
+  shell:
+   cmd: awk -F"'" '$2 ~ "DB_U" {print $4}' /home/{{ target_user }}/public_html/blog/wp-config.php
+  register: wp_user_name
+  when: t3_ilt_wp is defined
+
+- name: "Setting database name variable for T3 ILT"
+  shell:
+   cmd: awk -F"'" '$2 ~ "DB_N" {print $4}' /home/{{ target_user }}/public_html/blog/wp-config.php
+  register: wp_db_name
+  when: t3_ilt_wp is defined
+
+- name: "Removing SELECT privilege from WordPress MySQL user"
+  shell:
+   cmd: uapi --user={{ target_user }} Mysql set_privileges_on_database database={{ wp_db_name.stdout }} user={{ wp_user_name.stdout }} privileges=ALTER%2CALTER%20ROUTINE%2CCREATE%2CCREATE%20ROUTINE%2CCREATE%20TEMPORARY%20TABLES%2CCREATE%20VIEW%2CDELETE%2CDROP%2CEVENT%2CEXECUTE%2CINDEX%2CINSERT%2CLOCK%20TABLES%2CREFERENCES%2CSHOW%20VIEW%2CTRIGGER%2CUPDATE

@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: no
+
+  tasks:
+   - name: "checking if user is active"
+     find:
+      path: /home/blackest/public_html/
+      patterns: '*.tar.gz'
+     register: compressed_core_file
+
+   - debug:
+      msg: "{{ compressed_core_file.files[0].path }}"

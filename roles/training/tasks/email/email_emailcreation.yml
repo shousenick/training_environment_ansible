@@ -1,0 +1,4 @@
+---
+- name: "Creating support email account"
+  shell:
+   cmd: uapi --user={{ target_user }} Email add_pop email=support password=$(< /dev/urandom tr -dc _A-Z-a-z-0-9|head -c${1-24};) domain={{ target_domain }}

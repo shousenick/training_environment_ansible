@@ -1,0 +1,10 @@
+---
+- name: "obtain list of currently installed php versions"
+  shell:
+   cmd: /usr/local/cpanel/bin/rebuild_phpconf --current | awk 'NR>1 {print $1}'
+  register: php_version_list
+
+- name: "obtain the default php version"
+  shell:
+   cmd: /usr/local/cpanel/bin/rebuild_phpconf --current | awk '$1 ~ "DEFAULT" {print $3}'
+  register: php_version_default

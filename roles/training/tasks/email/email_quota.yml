@@ -1,0 +1,16 @@
+---
+- name: "Modifying {{ target_email_user.stdout }}@{{ target_domain}} to 1M"
+  shell:
+   cmd: uapi --user={{ target_user }} Email edit_pop_quota email={{ target_email_user.stdout }} quota=1 domain={{ target_domain }}
+
+- name: "Copying fake email to destination support@ email"
+  copy:
+   src: files/1M_email_file
+   dest: /home/{{ target_user }}/mail/{{ target_domain }}/support/cur/big.file
+   owner: "{{ target_user }}"
+   group: "{{ target_user }}" 
+   mode: '0640'
+
+- name: "Processing maildir size so thicc boi email reads"  
+  shell:
+   cmd: /scripts/generate_maildirsize --confirm --verbose {{ target_user }}

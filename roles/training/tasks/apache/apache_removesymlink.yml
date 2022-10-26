@@ -1,0 +1,13 @@
+---
+# this is removing the /etc/apache2/logs symlink. This will cause Apache fail to start
+# requires agent to correct symlink
+# this will also break EasyApache kekekekekek
+- name: "removing the symlink from /etc/apache2/logs"
+  ansible.builtin.file:
+   state: absent
+   path: /etc/apache2/logs
+
+- name: "Stopping httpd"
+  ansible.builtin.service:
+   name: httpd
+   state: stopped
